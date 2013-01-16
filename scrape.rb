@@ -46,8 +46,9 @@ class ProjectList
 
 		new_list = []
 		for i in 0..project_names.length
-			unless project_names[i].nil?
-				new_list << Project.new(project_names[i], url[i])
+		project_names.each_with_index do |name, i|
+			unless name.nil?
+				new_list << Project.new(name, url[i])
 			end
 		end
 
@@ -97,7 +98,7 @@ class ProjectList
 	end
 
 	def getProjectDetails()
-		for project in @list
+		@list.each do |project|
 			print "."
 			project.getInfo()
 		end
@@ -107,10 +108,8 @@ class ProjectList
 
 	def printToFile(filename)
 		File.open(filename,'w') do |f|
-			idx = 1
-			for project in @list
+			@list.each_with_index do |project, idx|
 				f.puts "#{idx}, #{project.raised}, #{project.funding_goal}, #{project.days_left}"
-				idx += 1
 			end
 		end
 	end
