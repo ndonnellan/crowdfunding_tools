@@ -19,7 +19,7 @@ class Project
 		@partial_url = partial_url
 	end
 
-	def getInfo()
+	def getInfo
 		full_url = "http://www.indiegogo.com/" + @partial_url
 		local_doc = Nokogiri::HTML(open(full_url))
 		@raised = local_doc.css('.money-raised .amount.medium.clearfix')[0].content
@@ -30,7 +30,7 @@ end
 
 class ProjectList
 	attr_accessor :list
-	def initialize()
+	def initialize
 		@list = []
 	end
 
@@ -97,7 +97,7 @@ class ProjectList
 		end
 	end
 
-	def getProjectDetails()
+	def getProjectDetails
 		@list.each do |project|
 			print "."
 			project.getInfo()
