@@ -6,7 +6,7 @@
 ## a few important details: name, funding goal, funding so far and days left.
 ##
 ## 2013-01-15: Very rudimentary and little error handling, but seems to work for meow
-
+##
 
 require 'nokogiri'
 require 'open-uri'
