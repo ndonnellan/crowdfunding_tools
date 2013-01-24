@@ -19,7 +19,7 @@ class Project
 		@partial_url = partial_url
 	end
 
-	def getInfo
+	def getInfo()
 		full_url = "http://www.indiegogo.com/" + @partial_url
 		local_doc = Nokogiri::HTML(open(full_url))
 		@raised = local_doc.css('.money-raised .amount.medium.clearfix')[0].content
@@ -30,7 +30,7 @@ end
 
 class ProjectList
 	attr_accessor :list
-	def initialize
+	def initialize()
 		@list = []
 	end
 
@@ -46,9 +46,8 @@ class ProjectList
 
 		new_list = []
 		for i in 0..project_names.length
-		project_names.each_with_index do |name, i|
-			unless name.nil?
-				new_list << Project.new(name, url[i])
+			unless project_names[i].nil?
+				new_list << Project.new(project_names[i], url[i])
 			end
 		end
 
@@ -97,8 +96,8 @@ class ProjectList
 		end
 	end
 
-	def getProjectDetails
-		@list.each do |project|
+	def getProjectDetails()
+		for project in @list
 			print "."
 			project.getInfo()
 		end
@@ -108,8 +107,10 @@ class ProjectList
 
 	def printToFile(filename)
 		File.open(filename,'w') do |f|
-			@list.each_with_index do |project, idx|
-				f.puts "#{idx}, #{project.raised}, #{project.funding_goal}, #{project.days_left}"
+			idx = 1
+			for project in @list
+				f.puts "#{idx} #{project.raised} #{project.funding_goal} #{project.days_left}"
+				idx += 1
 			end
 		end
 	end
